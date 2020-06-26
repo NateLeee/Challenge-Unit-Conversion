@@ -9,8 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var input = ""
+    
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            Form {
+                Section(header: Text("Input here:")) {
+                    TextField("", text: $input).keyboardType(.decimalPad)
+                }
+            }.navigationBarTitle("Unit Conversion")
+        }
     }
 }
 
