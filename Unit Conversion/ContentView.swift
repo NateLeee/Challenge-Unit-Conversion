@@ -21,9 +21,31 @@ struct ContentView: View {
     }
     
     private var conversionResult: Double {
-        let hp = Measurement(value: inputValue, unit: UnitPower.horsepower)
-        let kw = hp.converted(to: .kilowatts)
-        return kw.value
+        let inputUnit = inputUnits[inputUnitSelected]
+        let outputUnit = outputUnits[outputUnitSelected]
+        
+        var inputMeasurement = Measurement(value: 0, unit: UnitPower.watts) // UnitPower.watts is just a placeholder!
+        var outputMeasurement = inputMeasurement
+        
+        switch inputUnit {
+        case "HP":
+            inputMeasurement = Measurement(value: inputValue, unit: UnitPower.horsepower)
+        case "Kilowatts":
+            inputMeasurement = Measurement(value: inputValue, unit: UnitPower.kilowatts)
+        default:
+            return 0
+        }
+        
+        switch outputUnit {
+        case "HP":
+            outputMeasurement = inputMeasurement.converted(to: .horsepower)
+        case "Kilowatts":
+            outputMeasurement = inputMeasurement.converted(to: .kilowatts)
+        default:
+            return 0
+        }
+        
+        return outputMeasurement.value
     }
     
     var body: some View {
