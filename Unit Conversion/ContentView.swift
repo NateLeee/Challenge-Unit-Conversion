@@ -13,11 +13,17 @@ struct ContentView: View {
     @State private var inputUnitSelected = 0
     @State private var outputUnitSelected = 1
     
-    private var inputUnits = ["HP", "Brake HP", "Kilowatt"]
-    private var outputUnits = ["HP", "Brake HP", "Kilowatt"]
+    private var inputUnits = ["HP", "Brake HP", "Kilowatts"]
+    private var outputUnits = ["HP", "Brake HP", "Kilowatts"]
+    
+    private var inputValue: Double {
+        return Double(input) ?? 0
+    }
     
     private var conversionResult: Double {
-        return 0
+        let a = Measurement(value: inputValue, unit: UnitPower.horsepower)
+        let b = a.converted(to: .kilowatts)
+        return b.value
     }
     
     var body: some View {
@@ -42,6 +48,7 @@ struct ContentView: View {
                 }
                 Section(header: Text("Conversion Output")) {
                     Text("\(self.conversionResult, specifier: "%.2f") \(outputUnits[outputUnitSelected])")
+//                    Text("\(self.conversionResult) \(outputUnits[outputUnitSelected])")
                 }
             }.navigationBarTitle("Unit Conversion")
         }
