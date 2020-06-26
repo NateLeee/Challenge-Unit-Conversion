@@ -10,11 +10,15 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var input = ""
-    @State private var sourceSelected = 0
-    @State private var dstSelected = 0
+    @State private var inputUnitSelected = 0
+    @State private var outputUnitSelected = 1
     
-    private var sourceUnits = ["HP", "Brake HP", "Kilowatt"]
-    private var dstUnits = ["HP", "Brake HP", "Kilowatt"]
+    private var inputUnits = ["HP", "Brake HP", "Kilowatt"]
+    private var outputUnits = ["HP", "Brake HP", "Kilowatt"]
+    
+    private var conversionResult: Double {
+        return 0
+    }
     
     var body: some View {
         NavigationView {
@@ -22,12 +26,22 @@ struct ContentView: View {
                 Section(header: Text("Input here:")) {
                     TextField("", text: $input).keyboardType(.decimalPad)
                 }
-                Section(header: Text("Source Unit")) {
-                    Picker("Select Source Unit", selection: $sourceSelected) {
-                        ForEach(0..<sourceUnits.count) {
-                            Text("\(self.sourceUnits[$0])")
+                Section(header: Text("Input Unit")) {
+                    Picker("Select Input Unit", selection: $inputUnitSelected) {
+                        ForEach(0..<inputUnits.count) {
+                            Text("\(self.inputUnits[$0])")
                         }
                     }.pickerStyle(SegmentedPickerStyle())
+                }
+                Section(header: Text("Output Unit")) {
+                    Picker("Select Output Unit", selection: $outputUnitSelected) {
+                        ForEach(0..<outputUnits.count) {
+                            Text("\(self.outputUnits[$0])")
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                }
+                Section(header: Text("Conversion Output")) {
+                    Text("\(self.conversionResult, specifier: "%.2f") \(outputUnits[outputUnitSelected])")
                 }
             }.navigationBarTitle("Unit Conversion")
         }
