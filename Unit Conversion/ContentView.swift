@@ -72,7 +72,7 @@ struct ContentView: View {
                 Section(header: Text("Conversion Output")) {
                     Text("\(self.conversionResult, specifier: "%.2f") \(outputUnits[outputUnitSelected])")
                 }
-            }.navigationBarTitle("Unit Conversion")
+            }.navigationBarTitle("Power Conversion")
         }
     }
 }
