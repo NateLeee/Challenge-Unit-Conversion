@@ -24,7 +24,8 @@ struct ContentView: View {
         let inputUnit = inputUnits[inputUnitSelected]
         let outputUnit = outputUnits[outputUnitSelected]
         
-        var inputMeasurement = Measurement(value: 0, unit: UnitPower.watts) // UnitPower.watts is just a placeholder!
+        // "UnitPower.watts" is just a placeholder! The idea is to get this instance created.
+        var inputMeasurement = Measurement(value: 0, unit: UnitPower.watts)
         var outputMeasurement = inputMeasurement
         
         switch inputUnit {
@@ -70,7 +71,6 @@ struct ContentView: View {
                 }
                 Section(header: Text("Conversion Output")) {
                     Text("\(self.conversionResult, specifier: "%.2f") \(outputUnits[outputUnitSelected])")
-                    //                    Text("\(self.conversionResult) \(outputUnits[outputUnitSelected])")
                 }
             }.navigationBarTitle("Unit Conversion")
         }
